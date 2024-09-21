@@ -104,6 +104,10 @@ footer img {
   margin-right: 12px;
 }
 
+.emoji img:hover {
+  opacity: 0.5;
+}
+
 footer h2 {
   font-size: 0.813rem;
 }
