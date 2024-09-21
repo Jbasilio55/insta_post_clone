@@ -1,5 +1,8 @@
 import posts from "./posts.js";
 
+// change title
+document.title = "Oldagram";
+
 //create nav element | add class nav | add append to document
 let navEl = document.createElement("nav");
 navEl.setAttribute("class", "nav");
@@ -51,11 +54,11 @@ function renderPost() {
         </main>
         <footer>
             <div class="emoji">
-                <img src="/images/icon-heart.png"/>
-                <img src="/images/icon-comment.png"/>
-                <img src="/images/icon-dm.png"/>
+                <img src="/images/icon-heart.png" alt="heart icon" id="heart" data-index="${i}"/>
+                <img src="/images/icon-comment.png" alt="message icon"/>
+                <img src="/images/icon-dm.png" alt="dm icon"/>
             </div>
-            <h2 id="likes">${posts[i].likes} likes</h2>
+            <h2 class="likes" id="likes-${i}">${posts[i].likes} likes</h2>
             <h2 class="username">${posts[i].username}<span class="message">${posts[i].comment}</span></h2>
         </footer>
     </section>
@@ -66,5 +69,27 @@ function renderPost() {
   document.body.append(mainContainer);
 }
 
+function likePost() {
+  // Select all heart icons
+  let heartIcons = document.querySelectorAll("#heart");
+
+  heartIcons.forEach((heartIcon) => {
+    heartIcon.addEventListener("dblclick", function () {
+      // Get the index from the data attribute
+      const postIndex = heartIcon.getAttribute("data-index");
+
+      // Increment the likes in the posts array
+      posts[postIndex].likes++;
+
+      console.log(posts[postIndex].likes);
+
+      // Update the likes in the DOM
+      let likesElement = document.getElementById(`likes-${postIndex}`);
+      likesElement.textContent = `${posts[postIndex].likes} likes`;
+    });
+  });
+}
+
 addNav();
 renderPost();
+likePost();
